@@ -27,33 +27,34 @@ print(output_size)
 
 -- Define Network
 
+hidd_size = 2000
 local net1 = nn.Sequential()
-net1:add(nn.Linear(input_size,1000))
+net1:add(nn.Linear(input_size,hidd_size))
 net1:add(nn.ReLU())
-net1:add(nn.Linear(1000,1000))
+net1:add(nn.Linear(hidd_size,hidd_size))
 net1:add(nn.ReLU())
-net1:add(nn.Linear(1000,output_size))
+net1:add(nn.Linear(hidd_size,output_size))
 net1 = net1:cuda()
 local net2 = nn.Sequential()
-net2:add(nn.Linear(input_size,1000))
+net2:add(nn.Linear(input_size,hidd_size))
 net2:add(nn.ReLU())
-net2:add(nn.Linear(1000,1000))
+net2:add(nn.Linear(hidd_size,hidd_size))
 net2:add(nn.ReLU())
-net2:add(nn.Linear(1000,output_size))
+net2:add(nn.Linear(hidd_size,output_size))
 net2 = net2:cuda()
 local net3 = nn.Sequential()
-net3:add(nn.Linear(input_size,1000))
+net3:add(nn.Linear(input_size,hidd_size))
 net3:add(nn.ReLU())
-net3:add(nn.Linear(1000,1000))
+net3:add(nn.Linear(hidd_size,hidd_size))
 net3:add(nn.ReLU())
-net3:add(nn.Linear(1000,output_size))
+net3:add(nn.Linear(hidd_size,output_size))
 net3 = net3:cuda()
 local net4 = nn.Sequential()
-net4:add(nn.Linear(input_size,1000))
+net4:add(nn.Linear(input_size,hidd_size))
 net4:add(nn.ReLU())
-net4:add(nn.Linear(1000,1000))
+net4:add(nn.Linear(hidd_size,hidd_size))
 net4:add(nn.ReLU())
-net4:add(nn.Linear(1000,output_size))
+net4:add(nn.Linear(hidd_size,output_size))
 net4 = net4:cuda()
 
 local allNets = {}
@@ -185,8 +186,10 @@ function env:reward(state, action, next_state)
         else
             reward = reward - 20
         end
+        --[[
     else
-        reward = reward - 0.25*pdata.voxel_grid[{{x1},{5,10},{y1}}]:sum()
+        reward = reward - 1*pdata.voxel_grid[{{x1},{5,10},{y1}}]:sum()
+        --]]
     end
     return reward
 end
